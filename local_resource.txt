@@ -1,0 +1,14 @@
+*** Variables ***
+
+*** Keywords ***
+login Auth
+    [Arguments]    ${username}   ${password}  ${results}
+    Input Text    id=username    ${username}
+    Set Log Level    NONE
+    Input Text    id=password    ${password}
+    Set Log Level    DEBUG
+    Click Button  name=button
+    Wait Until Page Contains    ${results}
+
+Go to homepage
+    Open Browser    ${AUTH_URL}    ${BROWSER}    

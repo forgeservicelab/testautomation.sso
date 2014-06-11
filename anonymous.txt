@@ -1,0 +1,20 @@
+*** Settings ***
+Suite Setup    Go to homepage
+Suite Teardown    Close All Browsers
+Resource    ./common/assets/resource.txt
+Resource    local_resource.txt
+
+
+
+*** Variables ***
+
+*** Test Cases ***
+Git Public projects
+    Go to    ${GIT_URL}
+    Click Element    link=public projects
+    Wait Until Page Contains    Public Projects
+DASHBOARD (Forgeservicelab.fi)
+    Go to    ${DRUPAL_URL}
+    Wait Until Page Contains    Join Forge
+
+*** Keywords ***

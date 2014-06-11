@@ -1,0 +1,80 @@
+*** Settings ***
+Suite Setup    Go to homepage
+Suite Teardown    Close All Browsers
+Resource    ./common/assets/secrets.txt
+Resource    ./common/assets/resource.txt
+Resource    local_resource.txt
+Library    XmppClient
+
+*** Variables ***
+${USER}    ${VALID_USER}
+${PASSWORD}    ${VALID_PASSWORD}
+${TO}    ${TO_XMPP}
+
+*** Test Cases ***
+Auth LOGIN OK
+    Set Log Level    NONE
+    login Auth    ${USER}      ${PASSWORD}    You are currently logged in as ${USER}
+    Set Log Level    DEBUG
+Git LOGIN with CAS
+    Go to     ${GIT_URL}
+    Click Element    link=Cas
+    Wait Until Page Contains    Dashboard
+    Click Element    id=profile-pic
+    Wait Until Page Contains    ${USER}
+    Click Element    css=i.icon-signout
+    Wait Until Page Contains    You have successfully logged out. 
+Git LOGIN with LDAP
+    Go to     ${AUTH_URL}
+    login Auth    ${USER}      ${PASSWORD}    You are currently logged in as ${USER}
+    Go to     ${GIT_URL}
+    Input Text    id=username    ${USER}
+    Set Log Level    NONE
+    Input Text    id=password    ${PASSWORD}
+    Set Log Level    DEBUG
+    Click Element    name=commit
+    Click Element    id=profile-pic
+    Wait Until Page Contains    ${USER}
+#    Click Element    css=i.icon-signout
+#    Wait Until Page Contains    You have successfully logged out. 
+Redmine Support Wiki
+    Go to    ${REDMINE_URL}
+    Wait Until Page Contains    Welcome
+    Select From List By Index    id=project_quick_jump_box    11
+    Wait Until Page Contains    FORGE Support
+    Click Element    link=Wiki
+    Wait Until Page Contains    Table of contents
+Redmine FORUMS
+    Go to    ${REDMINE_URL}
+    Wait Until Page Contains    Welcome
+    Select From List By Index    id=project_quick_jump_box   10
+    Wait Until Page Contains    FORGE Forums
+    Click Element    link=Forums
+    Wait Until Page Contains    Last message 
+Redmine NEWS
+    Go to    ${REDMINE_URL}
+    Wait Until Page Contains    Welcome
+    Select From List By Index    id=project_quick_jump_box   9
+    Wait Until Page Contains    FORGE Announce
+    Click Element    link=News
+    Wait Until Page Contains    Add news
+Plaza Login with CAS
+    Go to    ${DRUPAL_URL}
+    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
+    Go to    ${DRUPAL_URL}
+    Wait Until Page Contains    ${USER}
+OpenStack LOGIN
+    Go to    ${OPENSTACK_URL}
+    Input Text    id=id_username    ${USER}
+    Set Log Level    NONE
+    Input Text    id=id_password    ${PASSWORD}
+    Set Log Level    DEBUG
+    Press Key     id=id_password     \\13
+    Wait Until Page Contains    ${USER}
+Xmpp Send Message
+    ${retVal}    send xmpp message    ${USER}    ${PASSWORD}    ${TO}    test message
+    Should Be Equal    ${retVal}    True
+
+
+
+*** Keywords ***
