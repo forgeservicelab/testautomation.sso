@@ -17,17 +17,19 @@ Auth LOGIN OK
     login Auth    ${USER}      ${PASSWORD}    You are currently logged in as ${USER}
     Set Log Level    DEBUG 
 Git LOGIN with CAS Should Fail
+#Need to be updated....
     Go to     ${GIT_URL}
     Click Element    link=Cas
-    Wait Until Page Contains    Something went wrong.
+    Wait Until Page Contains    There's no such user!
 Git LOGIN with LDAP Should Fail
+#Need to be updated....
     Go to     ${GIT_URL}
     Input Text    id=username    ${USER}
     Set Log Level    NONE
     Input Text    id=password    ${PASSWORD}
     Set Log Level    DEBUG
     Click Element    name=commit
-    Wait Until Page Contains    Could not authorize    
+    Wait Until Page Contains    Could not authorize you from LDAP because "(ldap) you are not a forge developer".
 Redmine Support Wiki Should Fail
     Go to    ${REDMINE_URL}/redmine/projects/forge-support/wiki
     Wait Until Page Contains    You are not authorized
