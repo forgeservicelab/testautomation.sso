@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup    Go to homepage
+Suite Setup    Go to git homepage
 Suite Teardown    Close All Browsers
 Resource    ./common/assets/resource.txt
 Resource    local_resource.txt
@@ -10,11 +10,10 @@ Resource    local_resource.txt
 
 *** Test Cases ***
 Git Public projects
-    Go to    ${GIT_URL}
-    Click Element    link=public projects
-    Wait Until Page Contains    Public Projects
-DASHBOARD (Forgeservicelab.fi)
-    Go to    ${DRUPAL_URL}
-    Wait Until Page Contains    Join Forge
+    Click Link    Explore
+    Wait Until Page Contains    Explore
+    Wait Until Page Contains    Discover projects and groups.
+    Click Link    Show all projects
+    Wait Until Page Contains    Ansible
 
 *** Keywords ***

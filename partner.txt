@@ -9,6 +9,7 @@ Library    XmppClient
 *** Variables ***
 ${USER}    ${VALID_PARTNER}
 ${PASSWORD}    ${VALID_PARTNER_PASSWORD}
+
 ${TO}    ${TO_XMPP}
 
 *** Test Cases ***
@@ -45,9 +46,18 @@ Redmine NEWS Should Fail
     Wait Until Page Contains    You are not authorized
 Plaza Login with CAS
     Go to    ${DRUPAL_URL}
-    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
-    Go to    ${DRUPAL_URL}
-    Wait Until Page Contains    ${USER}
+#    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
+#    Go to    ${DRUPAL_URL}
+#    Wait Until Page Contains    ${USER}
+    Wait Until Page Contains    Log in
+    Click Link    Log in
+    Set Log Level    NONE
+    login Auth    ${USER}      ${PASSWORD}    ${USER}
+    Set Log Level    DEBUG
+    Wait Until Page Contains    Forge
+    Page Should Contain    Logged in via CAS as
+    Page Should Contain    ${USER}
+
 OpenStack LOGIN Should Fail
     Go to    ${OPENSTACK_URL}
     Input Text    id=id_username    ${USER}

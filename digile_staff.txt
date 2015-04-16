@@ -22,47 +22,52 @@ Git LOGIN with CAS
     Wait Until Page Contains    Dashboard
     Click Element    id=profile-pic
     Wait Until Page Contains    ${USER}
-    Click Element    css=i.icon-signout
+    Click Element    css=i.fa.fa-sign-out
     Wait Until Page Contains    Sign in
 Git LOGIN with LDAP
-#    Go to     ${AUTH_URL}
-#    login Auth    ${USER}      ${PASSWORD}    You are currently logged in as ${USER}
     Go to     ${GIT_URL}
     Input Text    id=username    ${USER}
     Set Log Level    NONE
     Input Text    id=password    ${PASSWORD}
     Set Log Level    DEBUG
-    Click Element    name=commit
+    Click Button    name=button
     Click Element    id=profile-pic
     Wait Until Page Contains    ${USER}
+    Click Element    css=i.fa.fa-sign-out
 #    Click Element    css=i.icon-signout
-#    Wait Until Page Contains    You have successfully logged out. 
+    Wait Until Page Contains    You need to sign in before continuing.
 Redmine Support Wiki
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box    11
+    Select From List By Index    id=project_quick_jump_box    10
     Wait Until Page Contains    FORGE Support
     Click Element    link=Wiki
     Wait Until Page Contains    Table of contents
 Redmine FORUMS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box   10
-    Wait Until Page Contains    FORGE Forums
+    Select From List By Index    id=project_quick_jump_box   9
     Click Element    link=Forums
     Wait Until Page Contains    Last message 
 Redmine NEWS
-    Go to    ${REDMINE_URL}
-    Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box   9
-    Wait Until Page Contains    FORGE Announce
     Click Element    link=News
     Wait Until Page Contains    Add news
 Plaza Login with CAS
     Go to    ${DRUPAL_URL}
-    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
-    Go to    ${DRUPAL_URL}
-    Wait Until Page Contains    ${USER}
+#    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
+#    Go to    ${DRUPAL_URL}
+#    Wait Until Page Contains    ${USER}
+    Wait Until Page Contains    Log in
+    Click Link    Log in
+    Set Log Level    NONE
+    login Auth    ${USER}      ${PASSWORD}    ${USER}
+    Set Log Level    DEBUG
+    Wait Until Page Contains    Forge
+    Page Should Contain    Logged in via CAS as
+    Page Should Contain    ${USER}
+
+
+
 OpenStack LOGIN
     Go to    ${OPENSTACK_URL}
     Input Text    id=id_username    ${USER}
