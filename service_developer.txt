@@ -44,6 +44,8 @@ Redmine Support Wiki
     Wait Until Page Contains    FORGE Support
     Click Element    link=Wiki
     Wait Until Page Contains    Table of contents
+Redmine Support Can add issue
+    Page Should Contain    New issue
 Redmine FORUMS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
