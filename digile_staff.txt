@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup    Go to homepage
-Suite Teardown    Close All Browsers
+Suite Teardown    Log Out and Close Browsers
 Resource    ./common/assets/secrets.txt
 Resource    ./common/assets/resource.txt
 Resource    local_resource.txt
@@ -54,20 +54,12 @@ Redmine NEWS
     Wait Until Page Contains    Add news
 Plaza Login with CAS
     Go to    ${DRUPAL_URL}
-#    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
-#    Go to    ${DRUPAL_URL}
-#    Wait Until Page Contains    ${USER}
     Wait Until Page Contains    Log in
     Click Link    Log in
-    Set Log Level    NONE
-    login Auth    ${USER}      ${PASSWORD}    ${USER}
-    Set Log Level    DEBUG
     Wait Until Page Contains    Forge
+    Page Should Contain    Logged in
     Page Should Contain    Logged in via CAS as
     Page Should Contain    ${USER}
-
-
-
 OpenStack LOGIN
     Go to    ${OPENSTACK_URL}
     Input Text    id=id_username    ${USER}

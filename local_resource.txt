@@ -11,4 +11,16 @@ login Auth
     Wait Until Page Contains    ${results}
 
 Go to homepage
-    Open Browser    ${AUTH_URL}    ${BROWSER}    
+#    Open Browser    ${AUTH_URL}    ${BROWSER}    remote_url=http://ci.forgeservicelab.fi:4444/wd/hub
+    Open Browser    ${AUTH_URL}    ${BROWSER}
+
+Go to git homepage
+#    Open Browser    ${GIT_URL}    ${BROWSER}     remote_url=http://ci.forgeservicelab.fi:4444/wd/hub
+    Open Browser    ${GIT_URL}    ${BROWSER}
+
+Log Out and Close Browsers
+    Go to    ${AUTH_URL}
+    Click Link    Logout
+    Page Should Contain    Bye
+    Close All Browsers
+

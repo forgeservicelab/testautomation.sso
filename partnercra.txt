@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup    Go to homepage
-Suite Teardown    Close All Browsers
+Suite Teardown    Log Out and Close Browsers
 Resource    ./common/assets/secrets.txt
 Resource    ./common/assets/resource.txt
 Resource    local_resource.txt
@@ -19,37 +19,46 @@ Auth LOGIN OK
 Git LOGIN with CAS Should Fail
     Go to     ${GIT_URL}
     Click Element    link=Cas
-    Wait Until Page Contains    There's no such user! 
+#    Wait Until Page Contains    There's no such user! 
+    Wait Until Page Contains    Access denied for your LDAP account.
 Git LOGIN with LDAP Should Fail
     Go to     ${GIT_URL}
     Input Text    id=username    ${USER}
     Set Log Level    NONE
     Input Text    id=password    ${PASSWORD}
     Set Log Level    DEBUG
-    Click Element    name=commit
-    Wait Until Page Contains    Could not authorize you from LDAP because "(ldap) you are not a forge developer". 
+    Click Button  name=button
+#    Click Element    name=commit
+    Wait Until Page Contains    Access denied for your LDAP account.
+#    Wait Until Page Contains    Could not authorize you from LDAP because "(ldap) you are not a forge developer". 
 Redmine Support Wiki Should Fail
-    Go to    ${REDMINE_URL}/redmine/projects/forge-support/wiki
-    Wait Until Page Contains    You are not authorized
+    Go to    ${REDMINE_URL_LONG}/projects/forge-support/wiki
+    Wait Until Page Contains    WE'RE SORRY!
+    Page Should Contain    Forbidden 
 Redmine FORUMS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box  3
-    Wait Until Page Contains    FORGE Forums
+    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
+#    Select From List By Index    id=project_quick_jump_box  3
+    Wait Until Page Contains    Forums
     Click Element    link=Forums
     Wait Until Page Contains    Last message 
 Redmine NEWS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box   3 
-    Wait Until Page Contains    FORGE Announce
+    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
+#    Select From List By Index    id=project_quick_jump_box   3 
+    Wait Until Page Contains    News 
     Click Element    link=News
     Wait Until Page Contains    Add news
 Plaza Login with CAS
     Go to    ${DRUPAL_URL}
-    Click Element    dom=document.getElementById("block-menu-menu-log-in-menu").getElementsByTagName("li")[1]
-    Go to    ${DRUPAL_URL}
-    Wait Until Page Contains    ${USER}
+    Wait Until Page Contains    Log in
+    Click Link    Log in
+    Wait Until Page Contains    Forge
+    Page Should Contain    Logged in
+    Page Should Contain    Logged in via CAS as
+    Page Should Contain    ${USER}
 OpenStack LOGIN
     Go to    ${OPENSTACK_URL}
     Input Text    id=id_username    ${USER}
