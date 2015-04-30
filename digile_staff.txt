@@ -39,14 +39,16 @@ Git LOGIN with LDAP
 Redmine Support Wiki
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box    10
+#    Select From List By Index    id=project_quick_jump_box    10
+    Go to    ${REDMINE_URL}/projects/forge-support
     Wait Until Page Contains    FORGE Support
     Click Element    link=Wiki
     Wait Until Page Contains    Table of contents
 Redmine FORUMS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Index    id=project_quick_jump_box   9
+#    Select From List By Index    id=project_quick_jump_box   9
+    Go to    ${REDMINE_URL}/projects/forums
     Click Element    link=Forums
     Wait Until Page Contains    Last message 
 Redmine NEWS
