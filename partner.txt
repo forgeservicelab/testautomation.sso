@@ -39,7 +39,8 @@ Redmine Support Wiki Should Fail
 Redmine FORUMS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
+#    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
+    Go to    ${REDMINE_URL}/projects/forums
 #    Select From List By Index    id=project_quick_jump_box  3
     Wait Until Page Contains    Forums
     Click Element    link=Forums
@@ -47,8 +48,9 @@ Redmine FORUMS
 Redmine NEWS
     Go to    ${REDMINE_URL}
     Wait Until Page Contains    Welcome
-    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
+#    Select From List By Label   id=project_quick_jump_box     FORGE Service Lab
 #    Select From List By Index    id=project_quick_jump_box   3 
+    Go to    ${REDMINE_URL}/projects/forums
     Wait Until Page Contains    News
     Click Element    link=News
     Wait Until Page Contains    Add news
